@@ -5,13 +5,20 @@ import WelcomeMsg from './WelcomeMsg';
 
 const PostList = () => {
 
-  const { postList } = useContext(PostListData);
+  const { postList, addInitialPost } = useContext(PostListData);
 
   const handleGetPostsClick = () => {
     fetch('https://dummyjson.com/posts')
       .then(res => res.json())
-      .then(console.log);
-  }
+      .then((data) => {
+        console.log(data.posts);
+        addInitialPost(data.posts);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  };
+
 
   return (
     <>
